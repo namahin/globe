@@ -5,14 +5,18 @@
     <title>Miniature Earth | Space View Demo</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <script src="js/miniature.earth.core.js"></script>
+    <script src="https://namahin.github.io/globe/js/miniature.earth.core.js"></script>
 </head>
 
 
 
 
 <body>
+    <iframe src="https://namahin.github.io/globe/" frameborder="0"></iframe>
 <style>
+    html, body{
+        overflow: hidden;
+    }
     #res {
         width: 0;
         height: 0;
@@ -20,9 +24,8 @@
     }
 
     #myearth {
-        width: 100%;
-        height: 100vh;
-        max-height: 100vw;
+        width: auto;
+        height: 90vh;
         overflow: hidden;
         opacity: 0;
         transition: opacity 2s ease;
@@ -36,19 +39,6 @@
         content: none;
     }
 
-    #atmos {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 100%;
-        max-width: 100vh;
-        height: 100vh;
-        max-height: 100vw;
-        transform: translate(-50%, -50%);
-        background: radial-gradient(ellipse at center, #c8e6ff00 40%, #82c3ff33 49%, #213fff0d 50.5%, #1200ff00 64%);
-        z-index: 1200;
-        pointer-events: none;
-    }
 </style>
 <script>
     if (location.protocol == 'file:') {
