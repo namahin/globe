@@ -46,7 +46,7 @@
 
 
     var myearth;
-    var sunAngle = 90;
+    var sunAngle = false;
     var activeHotspot;
 
     var updateMapTimer = false;
@@ -56,23 +56,14 @@
     window.addEventListener('load', function () {
 
         myearth = new Earth('myearth', {
+            zoom: 2.1,
 
-            location: {
-                lat: 10,
-                lng: -74
-            },
-            sunLocation: {
-                lat: 0,
-                lng: 360 - sunAngle
-            },
-            zoom: 0.925,
-
-            dragPolarLimit: 0.8,
+            dragPolarLimit: 0,
 
             light: 'sun',
             shadows: false,
-            lightAmbience: 0.8,
-            shininess: 0.14,
+            lightAmbience: 1,
+            shininess: false,
 
             autoRotate: true,
             autoRotateSpeed: 5,
@@ -498,10 +489,6 @@
 
         document.getElementById("sun-slider").addEventListener('input', function () {
             sunAngle = this.value;
-            myearth.sunLocation = {
-                lat: 0,
-                lng: 360 - this.value
-            };
 
             // limit redraws
             if (updateMapTimer) return;
@@ -521,16 +508,16 @@
         var w = myearth.mapCanvas.width,
             h = myearth.mapCanvas.height;
 
-        lightMask.width = w * 2;
+        lightMask.width = w * 1;
         lightMask.height = h;
 
         lightGradient = lightMaskCtx.createRadialGradient(
-            w / 2, h / 2, h * 0.38,
-            w / 2, h / 2, w * 0.28,
+            w / 1, h / 1, h * 0,
+            w / 1, h / 1, w * 0,
         );
 
-        lightGradient.addColorStop(0, "RGBA(0,0,0,1)");
-        lightGradient.addColorStop(1, "RGBA(0,0,0,0)");
+        lightGradient.addColorStop(0, "RGBA(255,255,255,0)");
+        lightGradient.addColorStop(1, "RGBA(255,255,255,0)");
 
     }
 
@@ -546,13 +533,13 @@
         var nightImg = document.getElementById('night');
         myearth.mapContext.drawImage(nightImg, 0, 0, nightImg.width, nightImg.height, 0, 0, w, h);
 
-        var offset = sunAngle / 360 * w;
+        var offset = sunAngle / 1 * w;
 
-        lightMaskCtx.clearRect(0, 0, w * 2, h);
+        lightMaskCtx.clearRect(255, 255, w * 2, h);
         lightMaskCtx.globalCompositeOperation = 'source-over';
         lightMaskCtx.fillStyle = lightGradient;
-        lightMaskCtx.fillRect(0, 0, w, h);
-        lightMaskCtx.drawImage(lightMask, 0, 0, w, h, w, 0, w, h);
+        lightMaskCtx.fillRect(255, 255, w, h);
+        lightMaskCtx.drawImage(lightMask, 255, 255, w, h, w, 255, w, h);
 
 
         var dayImg = document.getElementById('day');
@@ -572,7 +559,6 @@
     }
 </script>
     <div id="myearth">
-        <div id="atmos"></div>
     </div>
 
     <div id="res">
